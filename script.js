@@ -26,7 +26,6 @@ const feedbackSense = document.getElementById("feedbackSense");
 const feedbackBravo = document.getElementById("feedbackBravo");
 
 const starterArrow = document.getElementById("starterArrow");
-const svg = document.getElementById("interactionLayer");
 
 const VIEW_W = 800;
 const VIEW_H = 600;
@@ -42,57 +41,7 @@ let state = {
 let pageResults = {};
 let failedAttempts = {};
 
-const hintGroup = createHintMarker();
-svg.appendChild(hintGroup);
-
 scoreTotal.textContent = String(EXERCISES.filter(ex => ex.type === "exercise").length);
-
-function createSvgEl(tag, attrs = {}) {
-  const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
-  Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
-  return el;
-}
-
-function createHintMarker() {
-  const g = createSvgEl("g", { id: "hintMarker", visibility: "hidden" });
-
-  const c = createSvgEl("circle", {
-    cx: 0,
-    cy: 0,
-    r: 12,
-    fill: "none",
-    stroke: "#22c55e",
-    "stroke-width": 4
-  });
-
-  const l1 = createSvgEl("line", {
-    x1: -16, y1: -16, x2: 16, y2: 16,
-    stroke: "#22c55e",
-    "stroke-width": 4,
-    "stroke-linecap": "round"
-  });
-
-  const l2 = createSvgEl("line", {
-    x1: -16, y1: 16, x2: 16, y2: -16,
-    stroke: "#22c55e",
-    "stroke-width": 4,
-    "stroke-linecap": "round"
-  });
-
-  g.appendChild(c);
-  g.appendChild(l1);
-  g.appendChild(l2);
-  return g;
-}
-
-function showHintAt(x, y) {
-  hintGroup.setAttribute("transform", `translate(${x} ${y})`);
-  hintGroup.setAttribute("visibility", "visible");
-}
-
-function hideHint() {
-  hintGroup.setAttribute("visibility", "hidden");
-}
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -246,7 +195,6 @@ function loadExercise(index) {
   updateScoreDisplay();
   updateNavButtons();
   hideModal();
-  refreshHint();
 }
 
 function resetCurrentExercise() {
@@ -254,7 +202,6 @@ function resetCurrentExercise() {
   const startArrow = defaultArrowForExercise(exercise);
   setArrow(startArrow.tail, startArrow.head);
   hideModal();
-  refreshHint();
 }
 
 function isOriginCorrect(exercise, tailPoint) {
@@ -269,30 +216,14 @@ function isOriginCorrect(exercise, tailPoint) {
   return distance(tailPoint, expected.tail) <= expected.originTolerance;
 }
 
-function getHintPoint(exercise) {
-  if (exercise.expected.originZone && exercise.expected.originZone.type === "circle") {
-    return {
-      x: exercise.expected.originZone.cx,
-      y: exercise.expected.originZone.cy
-    };
-  }
-  return exercise.expected.tail;
-}
+function getHintText(exercise) {
+  const expected = exercise.expected;
 
-function refreshHint() {
-  const exercise = EXERCISES[currentIndex];
-  if (exercise.type !== "exercise") {
-    hideHint();
-    return;
+  if (expected.originZone && expected.originZone.type === "circle") {
+    return `Aide : le point d'application attendu est centré vers x=${expected.originZone.cx}, y=${expected.originZone.cy}.`;
   }
 
-  const attempts = failedAttempts[exercise.id] || 0;
-  if (attempts >= 6) {
-    const p = getHintPoint(exercise);
-    showHintAt(p.x, p.y);
-  } else {
-    hideHint();
-  }
+  return `Aide : le point d'application attendu est proche de x=${expected.tail.x}, y=${expected.tail.y}.`;
 }
 
 function evaluateCurrentExercise() {
@@ -345,9 +276,12 @@ function evaluateCurrentExercise() {
     pageResults[exercise.id] = false;
     feedbackBravo.classList.add("hidden");
     failedAttempts[exercise.id] = (failedAttempts[exercise.id] || 0) + 1;
+
+    if (failedAttempts[exercise.id] >= 6) {
+      feedbackOrigin.textContent += " " + getHintText(exercise);
+    }
   }
 
-  refreshHint();
   updateScoreDisplay();
   updateNavButtons();
   showModal();
