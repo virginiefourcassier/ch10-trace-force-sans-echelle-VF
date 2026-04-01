@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracer une force (sans échelle)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <h1>Représentation des forces</h1>
+
+      <div class="topbar-right">
+        <div id="scoreBox" class="score-box">
+          Score : <span id="scoreValue">0</span>/<span id="scoreTotal">6</span>
+        </div>
+
+        <div class="nav-box">
+          <button id="prevBtn" class="nav-btn" aria-label="Page précédente">◀</button>
+          <span id="pageIndicator">0/6</span>
+          <button id="nextBtn" class="nav-btn" aria-label="Page suivante">▶</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="panel">
+      <section class="exercise-layout">
+        <aside class="left-column">
+          <div class="mini-score">
+            Page : <span id="pageScore">0</span>/1
+          </div>
+
+          <div class="start-arrow-zone">
+            <svg id="starterArrow" width="90" height="40" viewBox="0 0 90 40" aria-hidden="true">
+              <line x1="10" y1="20" x2="55" y2="20" stroke="#e31919" stroke-width="4" stroke-linecap="round"></line>
+              <line x1="55" y1="20" x2="46" y2="12" stroke="#e31919" stroke-width="4" stroke-linecap="round"></line>
+              <line x1="55" y1="20" x2="46" y2="28" stroke="#e31919" stroke-width="4" stroke-linecap="round"></line>
+            </svg>
+          </div>
+
+          <button id="validateBtn" class="action-btn">Valider</button>
+          <button id="resetBtn" class="action-btn secondary">Réinitialiser</button>
+        </aside>
+
+        <section class="content-column">
+          <div class="instruction-box">
+            <p id="instructionText">Chargement...</p>
+          </div>
+
+          <div id="imageStage" class="image-stage">
+            <img id="exerciseImage" src="" alt="Illustration de l'exercice" />
+
+            <svg id="drawingLayer" class="drawing-layer" viewBox="0 0 800 600" preserveAspectRatio="none">
+              <line id="arrowLine" x1="120" y1="160" x2="220" y2="120"></line>
+              <line id="arrowHead1" x1="220" y1="120" x2="205" y2="118"></line>
+              <line id="arrowHead2" x1="220" y1="120" x2="210" y2="132"></line>
+
+              <circle id="tailHandle" class="handle tail" cx="120" cy="160" r="10"></circle>
+              <circle id="headHandle" class="handle head" cx="220" cy="120" r="10"></circle>
+            </svg>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div id="progressText">Exercice 0 sur 6</div>
+    </footer>
+  </div>
+
+  <div id="feedbackModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span>Résultat</span>
+        <button id="closeModalBtn" class="close-btn" aria-label="Fermer">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p id="feedbackOrigin"></p>
+        <p id="feedbackDirection"></p>
+        <p id="feedbackSense"></p>
+        <p id="feedbackBravo" class="bravo hidden">BRAVO !!!</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
