@@ -18,7 +18,7 @@ const EXERCISES = [
     expected: {
       tail: { x: 520, y: 275 },
       vector: { x: 190, y: 170 },
-      originTolerance: 130,
+      originTolerance: 90,
       angleToleranceDeg: 28
     }
   },
@@ -31,7 +31,7 @@ const EXERCISES = [
     expected: {
       tail: { x: 630, y: 305 },
       vector: { x: 0, y: -210 },
-      originTolerance: 130,
+      originTolerance: 90,
       angleToleranceDeg: 22
     }
   },
@@ -42,9 +42,14 @@ const EXERCISES = [
     image: "assets/basket.png",
     type: "exercise",
     expected: {
-      tail: { x: 525, y: 120 },
+      tail: { x: 420, y: 95 },
+      originZone: {
+        type: "circle",
+        cx: 420,
+        cy: 95,
+        r: 70
+      },
       vector: { x: 0, y: 210 },
-      originTolerance: 140,
       angleToleranceDeg: 18
     }
   },
@@ -57,7 +62,7 @@ const EXERCISES = [
     expected: {
       tail: { x: 407, y: 360 },
       vector: { x: 0, y: -190 },
-      originTolerance: 120,
+      originTolerance: 85,
       angleToleranceDeg: 20
     }
   },
@@ -70,7 +75,7 @@ const EXERCISES = [
     expected: {
       tail: { x: 470, y: 305 },
       vector: { x: -180, y: 0 },
-      originTolerance: 120,
+      originTolerance: 85,
       angleToleranceDeg: 20
     }
   },
@@ -83,7 +88,7 @@ const EXERCISES = [
     expected: {
       tail: { x: 470, y: 170 },
       vector: { x: 0, y: 210 },
-      originTolerance: 150,
+      originTolerance: 95,
       angleToleranceDeg: 18
     }
   }
