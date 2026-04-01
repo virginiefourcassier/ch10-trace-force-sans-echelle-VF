@@ -331,3 +331,12 @@ body {
     min-width: 120px;
   }
 }
+.signature {
+  text-align: center;
+  margin: 10px auto 0 auto;
+  font-size: 0.95rem;
+  color: #133c66;
+  font-style: italic;
+  font-weight: 600;
+  opacity: 0.95;
+}
