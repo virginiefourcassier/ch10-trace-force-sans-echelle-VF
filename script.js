@@ -32,6 +32,8 @@ const originHintCircle = document.getElementById("originHintCircle");
 const originHintLine1 = document.getElementById("originHintLine1");
 const originHintLine2 = document.getElementById("originHintLine2");
 
+const endLinkBox = document.getElementById("endLinkBox");
+
 const VIEW_W = 800;
 const VIEW_H = 600;
 
@@ -192,6 +194,7 @@ function getExerciseScoreCount() {
 function isCurrentExerciseUnlockedForNext() {
   const current = EXERCISES[currentIndex];
   if (current.type === "training") return true;
+  if (current.type === "end") return true;
   return pageResults[current.id] === true;
 }
 
@@ -240,10 +243,40 @@ function loadExercise(index) {
   instructionText.textContent = exercise.instruction;
   exerciseImage.src = exercise.image;
 
-  const startArrow = defaultArrowForExercise(exercise);
-  setArrow(startArrow.tail, startArrow.head);
+  const isEndPage = exercise.type === "end";
 
-  starterArrow.style.visibility = exercise.type === "training" ? "hidden" : "visible";
+  if (isEndPage) {
+    // Page de fin : pas de flèche ni de validation, lien Éléa visible
+    arrowLine.style.visibility = "hidden";
+    arrowHead1.style.visibility = "hidden";
+    arrowHead2.style.visibility = "hidden";
+    tailHandle.style.visibility = "hidden";
+    headHandle.style.visibility = "hidden";
+    starterArrow.style.visibility = "hidden";
+    validateBtn.style.visibility = "hidden";
+    resetBtn.style.visibility = "hidden";
+
+    if (endLinkBox) {
+      endLinkBox.style.display = "block";
+    }
+  } else {
+    const startArrow = defaultArrowForExercise(exercise);
+    setArrow(startArrow.tail, startArrow.head);
+
+    arrowLine.style.visibility = "visible";
+    arrowHead1.style.visibility = "visible";
+    arrowHead2.style.visibility = "visible";
+    tailHandle.style.visibility = "visible";
+    headHandle.style.visibility = "visible";
+    validateBtn.style.visibility = "visible";
+    resetBtn.style.visibility = "visible";
+    starterArrow.style.visibility = exercise.type === "training" ? "hidden" : "visible";
+
+    if (endLinkBox) {
+      endLinkBox.style.display = "none";
+    }
+  }
+
   updateScoreDisplay();
   updateNavButtons();
   hideModal();
@@ -252,6 +285,8 @@ function loadExercise(index) {
 
 function resetCurrentExercise() {
   const exercise = EXERCISES[currentIndex];
+  if (exercise.type === "end") return;
+
   const startArrow = defaultArrowForExercise(exercise);
   setArrow(startArrow.tail, startArrow.head);
   hideModal();
@@ -281,6 +316,10 @@ function evaluateCurrentExercise() {
     showModal();
     updateNavButtons();
     refreshOriginHint();
+    return;
+  }
+
+  if (exercise.type === "end") {
     return;
   }
 
