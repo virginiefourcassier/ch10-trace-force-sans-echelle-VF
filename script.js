@@ -136,6 +136,12 @@ function getExerciseScoreCount() {
   return Object.values(pageResults).filter(Boolean).length;
 }
 
+function isCurrentExerciseUnlockedForNext() {
+  const current = EXERCISES[currentIndex];
+  if (current.type === "training") return true;
+  return pageResults[current.id] === true;
+}
+
 function updateScoreDisplay() {
   scoreValue.textContent = String(getExerciseScoreCount());
 
@@ -149,7 +155,13 @@ function updateScoreDisplay() {
 
 function updateNavButtons() {
   prevBtn.disabled = currentIndex === 0;
-  nextBtn.disabled = currentIndex === EXERCISES.length - 1;
+
+  if (currentIndex === EXERCISES.length - 1) {
+    nextBtn.disabled = true;
+    return;
+  }
+
+  nextBtn.disabled = !isCurrentExerciseUnlockedForNext();
 }
 
 function defaultArrowForExercise(exercise) {
@@ -179,8 +191,8 @@ function loadExercise(index) {
   setArrow(startArrow.tail, startArrow.head);
 
   starterArrow.style.visibility = exercise.type === "training" ? "hidden" : "visible";
-  updateNavButtons();
   updateScoreDisplay();
+  updateNavButtons();
   hideModal();
 }
 
@@ -200,6 +212,7 @@ function evaluateCurrentExercise() {
     feedbackSense.textContent = "Passe ensuite à la page suivante.";
     feedbackBravo.classList.add("hidden");
     showModal();
+    updateNavButtons();
     return;
   }
 
@@ -214,13 +227,15 @@ function evaluateCurrentExercise() {
 
   if (norm(userVector) > 12) {
     const angle = angleBetweenDeg(userVector, expectedVector);
-    directionOk = angle <= exercise.expected.angleToleranceDeg || Math.abs(angle - 180) <= exercise.expected.angleToleranceDeg;
+    directionOk =
+      angle <= exercise.expected.angleToleranceDeg ||
+      Math.abs(angle - 180) <= exercise.expected.angleToleranceDeg;
     senseOk = angle <= exercise.expected.angleToleranceDeg;
   }
 
   feedbackOrigin.textContent = originOk
-    ? "L'origine est correcte."
-    : "L'origine n'est pas correcte.";
+    ? "Le point d'application est correct."
+    : "Le point d'application n'est pas correct.";
 
   feedbackDirection.textContent = directionOk
     ? "La direction est correcte."
@@ -241,6 +256,7 @@ function evaluateCurrentExercise() {
   }
 
   updateScoreDisplay();
+  updateNavButtons();
   showModal();
 }
 
@@ -289,7 +305,9 @@ prevBtn.addEventListener("click", () => {
 });
 
 nextBtn.addEventListener("click", () => {
-  if (currentIndex < EXERCISES.length - 1) loadExercise(currentIndex + 1);
+  if (currentIndex < EXERCISES.length - 1 && isCurrentExerciseUnlockedForNext()) {
+    loadExercise(currentIndex + 1);
+  }
 });
 
 validateBtn.addEventListener("click", evaluateCurrentExercise);
