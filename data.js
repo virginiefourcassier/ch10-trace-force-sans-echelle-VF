@@ -16,11 +16,11 @@ const EXERCISES = [
     image: "assets/planeur.png",
     type: "exercise",
     expected: {
-      tail: { x: 555, y: 347 },
+      tail: { x: 554, y: 362 },
       originZone: {
         type: "circle",
-        cx: 555,
-        cy: 347,
+        cx: 554,
+        cy: 362,
         r: 20
       },
       vector: { x: 190, y: 170 },
@@ -47,11 +47,11 @@ const EXERCISES = [
     image: "assets/basket.png",
     type: "exercise",
     expected: {
-      tail: { x: 390, y: 95 },
+      tail: { x: 295, y: 91 },
       originZone: {
         type: "circle",
-        cx: 390,
-        cy: 95,
+        cx: 295,
+        cy: 91,
         r: 90
       },
       vector: { x: 0, y: 210 },
@@ -65,7 +65,7 @@ const EXERCISES = [
     image: "assets/golf.png",
     type: "exercise",
     expected: {
-      tail: { x: 407, y: 390 },
+      tail: { x: 401, y: 450 },
       vector: { x: 0, y: -190 },
       originTolerance: 85,
       angleToleranceDeg: 20
@@ -91,7 +91,7 @@ const EXERCISES = [
     image: "assets/skieur.png",
     type: "exercise",
     expected: {
-      tail: { x: 440, y: 200 },
+      tail: { x: 407, y: 228 },
       vector: { x: 0, y: 210 },
       originTolerance: 95,
       angleToleranceDeg: 18
