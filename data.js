@@ -29,10 +29,10 @@ const EXERCISES = [
     image: "assets/haltero.png",
     type: "exercise",
     expected: {
-      tail: { x: 345, y: 170 },
+      tail: { x: 630, y: 305 },
       vector: { x: 0, y: -210 },
-      originTolerance: 46,
-      angleToleranceDeg: 20
+      originTolerance: 60,
+      angleToleranceDeg: 22
     }
   },
   {
