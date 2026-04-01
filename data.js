@@ -18,8 +18,8 @@ const EXERCISES = [
     expected: {
       tail: { x: 520, y: 275 },
       vector: { x: -250, y: -70 },
-      originTolerance: 28,
-      angleToleranceDeg: 14
+      originTolerance: 45,
+      angleToleranceDeg: 22
     }
   },
   {
@@ -31,8 +31,8 @@ const EXERCISES = [
     expected: {
       tail: { x: 345, y: 170 },
       vector: { x: 0, y: -210 },
-      originTolerance: 30,
-      angleToleranceDeg: 12
+      originTolerance: 46,
+      angleToleranceDeg: 20
     }
   },
   {
@@ -44,8 +44,8 @@ const EXERCISES = [
     expected: {
       tail: { x: 525, y: 120 },
       vector: { x: 0, y: 210 },
-      originTolerance: 34,
-      angleToleranceDeg: 10
+      originTolerance: 48,
+      angleToleranceDeg: 18
     }
   },
   {
@@ -57,8 +57,8 @@ const EXERCISES = [
     expected: {
       tail: { x: 407, y: 360 },
       vector: { x: 0, y: -190 },
-      originTolerance: 26,
-      angleToleranceDeg: 12
+      originTolerance: 42,
+      angleToleranceDeg: 20
     }
   },
   {
@@ -70,8 +70,8 @@ const EXERCISES = [
     expected: {
       tail: { x: 470, y: 305 },
       vector: { x: -180, y: 0 },
-      originTolerance: 28,
-      angleToleranceDeg: 12
+      originTolerance: 44,
+      angleToleranceDeg: 20
     }
   },
   {
@@ -83,8 +83,8 @@ const EXERCISES = [
     expected: {
       tail: { x: 470, y: 170 },
       vector: { x: 0, y: 210 },
-      originTolerance: 34,
-      angleToleranceDeg: 10
+      originTolerance: 48,
+      angleToleranceDeg: 18
     }
   }
 ];
