@@ -246,6 +246,12 @@ function loadExercise(index) {
   const isEndPage = exercise.type === "end";
 
   if (isEndPage) {
+    document.body.classList.add("end-page");
+  } else {
+    document.body.classList.remove("end-page");
+  }
+
+  if (isEndPage) {
     // Page de fin : pas de flèche ni de validation, lien Éléa visible
     arrowLine.style.visibility = "hidden";
     arrowHead1.style.visibility = "hidden";
