@@ -27,6 +27,11 @@ const feedbackBravo = document.getElementById("feedbackBravo");
 
 const starterArrow = document.getElementById("starterArrow");
 
+const originHint = document.getElementById("originHint");
+const originHintCircle = document.getElementById("originHintCircle");
+const originHintLine1 = document.getElementById("originHintLine1");
+const originHintLine2 = document.getElementById("originHintLine2");
+
 const VIEW_W = 800;
 const VIEW_H = 600;
 
@@ -133,6 +138,53 @@ function renderArrow() {
   arrowHead2.setAttribute("y2", right.y);
 }
 
+function hideOriginHint() {
+  if (originHint) {
+    originHint.setAttribute("visibility", "hidden");
+  }
+}
+
+function showOriginHint(x, y) {
+  if (!originHint || !originHintCircle || !originHintLine1 || !originHintLine2) return;
+
+  originHintCircle.setAttribute("cx", x);
+  originHintCircle.setAttribute("cy", y);
+
+  originHintLine1.setAttribute("x1", x - 14);
+  originHintLine1.setAttribute("y1", y - 14);
+  originHintLine1.setAttribute("x2", x + 14);
+  originHintLine1.setAttribute("y2", y + 14);
+
+  originHintLine2.setAttribute("x1", x - 14);
+  originHintLine2.setAttribute("y1", y + 14);
+  originHintLine2.setAttribute("x2", x + 14);
+  originHintLine2.setAttribute("y2", y - 14);
+
+  originHint.setAttribute("visibility", "visible");
+}
+
+function refreshOriginHint() {
+  const exercise = EXERCISES[currentIndex];
+
+  if (exercise.type !== "exercise") {
+    hideOriginHint();
+    return;
+  }
+
+  const attempts = failedAttempts[exercise.id] || 0;
+
+  if (attempts < 6) {
+    hideOriginHint();
+    return;
+  }
+
+  if (exercise.expected.originZone && exercise.expected.originZone.type === "circle") {
+    showOriginHint(exercise.expected.originZone.cx, exercise.expected.originZone.cy);
+  } else {
+    showOriginHint(exercise.expected.tail.x, exercise.expected.tail.y);
+  }
+}
+
 function getExerciseScoreCount() {
   return Object.values(pageResults).filter(Boolean).length;
 }
@@ -195,6 +247,7 @@ function loadExercise(index) {
   updateScoreDisplay();
   updateNavButtons();
   hideModal();
+  refreshOriginHint();
 }
 
 function resetCurrentExercise() {
@@ -202,6 +255,7 @@ function resetCurrentExercise() {
   const startArrow = defaultArrowForExercise(exercise);
   setArrow(startArrow.tail, startArrow.head);
   hideModal();
+  refreshOriginHint();
 }
 
 function isOriginCorrect(exercise, tailPoint) {
@@ -216,16 +270,6 @@ function isOriginCorrect(exercise, tailPoint) {
   return distance(tailPoint, expected.tail) <= expected.originTolerance;
 }
 
-function getHintText(exercise) {
-  const expected = exercise.expected;
-
-  if (expected.originZone && expected.originZone.type === "circle") {
-    return `Aide : le point d'application attendu est centré vers x=${expected.originZone.cx}, y=${expected.originZone.cy}.`;
-  }
-
-  return `Aide : le point d'application attendu est proche de x=${expected.tail.x}, y=${expected.tail.y}.`;
-}
-
 function evaluateCurrentExercise() {
   const exercise = EXERCISES[currentIndex];
 
@@ -236,6 +280,7 @@ function evaluateCurrentExercise() {
     feedbackBravo.classList.add("hidden");
     showModal();
     updateNavButtons();
+    refreshOriginHint();
     return;
   }
 
@@ -276,14 +321,11 @@ function evaluateCurrentExercise() {
     pageResults[exercise.id] = false;
     feedbackBravo.classList.add("hidden");
     failedAttempts[exercise.id] = (failedAttempts[exercise.id] || 0) + 1;
-
-    if (failedAttempts[exercise.id] >= 6) {
-      feedbackOrigin.textContent += " " + getHintText(exercise);
-    }
   }
 
   updateScoreDisplay();
   updateNavButtons();
+  refreshOriginHint();
   showModal();
 }
 
