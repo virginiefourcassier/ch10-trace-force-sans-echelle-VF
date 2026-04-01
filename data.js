@@ -16,9 +16,14 @@ const EXERCISES = [
     image: "assets/planeur.png",
     type: "exercise",
     expected: {
-      tail: { x: 520, y: 275 },
+      tail: { x: 555, y: 342 },
+      originZone: {
+        type: "circle",
+        cx: 555,
+        cy: 342,
+        r: 35
+      },
       vector: { x: 190, y: 170 },
-      originTolerance: 90,
       angleToleranceDeg: 28
     }
   },
