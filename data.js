@@ -17,9 +17,9 @@ const EXERCISES = [
     type: "exercise",
     expected: {
       tail: { x: 520, y: 275 },
-      vector: { x: -250, y: -70 },
-      originTolerance: 45,
-      angleToleranceDeg: 22
+      vector: { x: 190, y: 170 },
+      originTolerance: 55,
+      angleToleranceDeg: 28
     }
   },
   {
