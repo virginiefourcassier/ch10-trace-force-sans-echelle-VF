@@ -21,7 +21,7 @@ const EXERCISES = [
         type: "circle",
         cx: 555,
         cy: 342,
-        r: 35
+        r: 20
       },
       vector: { x: 190, y: 170 },
       angleToleranceDeg: 28
@@ -52,7 +52,7 @@ const EXERCISES = [
         type: "circle",
         cx: 420,
         cy: 95,
-        r: 70
+        r: 90
       },
       vector: { x: 0, y: 210 },
       angleToleranceDeg: 18
