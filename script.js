@@ -203,6 +203,18 @@ function resetCurrentExercise() {
   hideModal();
 }
 
+function isOriginCorrect(exercise, tailPoint) {
+  const expected = exercise.expected;
+
+  if (expected.originZone && expected.originZone.type === "circle") {
+    const dx = tailPoint.x - expected.originZone.cx;
+    const dy = tailPoint.y - expected.originZone.cy;
+    return (dx * dx + dy * dy) <= (expected.originZone.r * expected.originZone.r);
+  }
+
+  return distance(tailPoint, expected.tail) <= expected.originTolerance;
+}
+
 function evaluateCurrentExercise() {
   const exercise = EXERCISES[currentIndex];
 
@@ -216,11 +228,10 @@ function evaluateCurrentExercise() {
     return;
   }
 
-  const expectedTail = exercise.expected.tail;
   const expectedVector = exercise.expected.vector;
   const userVector = vector(state.tail, state.head);
 
-  const originOk = distance(state.tail, expectedTail) <= exercise.expected.originTolerance;
+  const originOk = isOriginCorrect(exercise, state.tail);
 
   let directionOk = false;
   let senseOk = false;
