@@ -1,7 +1,7 @@
 const EXERCISES = [
   {
     id: 0,
-    pageLabel: "0/6",
+    pageLabel: "0/7",
     title: "UTILISATION DE LA SOURIS",
     instruction:
       "Pour positionner la flèche : cliquer sur l'origine de la flèche et glisser la souris puis relâcher ; cliquer sur l'extrémité de la flèche et glisser la souris puis relâcher.",
@@ -11,7 +11,7 @@ const EXERCISES = [
   },
   {
     id: 1,
-    pageLabel: "1/6",
+    pageLabel: "1/7",
     instruction: "Représenter la force exercée par la corde sur le planeur.",
     image: "assets/planeur.png",
     type: "exercise",
@@ -29,7 +29,7 @@ const EXERCISES = [
   },
   {
     id: 2,
-    pageLabel: "2/6",
+    pageLabel: "2/7",
     instruction: "Représenter la force exercée par la main gauche de l'haltérophile sur les haltères.",
     image: "assets/haltero.png",
     type: "exercise",
@@ -42,7 +42,7 @@ const EXERCISES = [
   },
   {
     id: 3,
-    pageLabel: "3/6",
+    pageLabel: "3/7",
     instruction: "Représenter le poids du ballon.",
     image: "assets/basket.png",
     type: "exercise",
@@ -60,7 +60,7 @@ const EXERCISES = [
   },
   {
     id: 4,
-    pageLabel: "4/6",
+    pageLabel: "4/7",
     instruction: "Représenter la force exercée par le sol sur la balle de golf.",
     image: "assets/golf.png",
     type: "exercise",
@@ -73,7 +73,7 @@ const EXERCISES = [
   },
   {
     id: 5,
-    pageLabel: "5/6",
+    pageLabel: "5/7",
     instruction: "Représenter la force exercée par la raquette sur la balle.",
     image: "assets/tennis.png",
     type: "exercise",
@@ -86,7 +86,7 @@ const EXERCISES = [
   },
   {
     id: 6,
-    pageLabel: "6/6",
+    pageLabel: "6/7",
     instruction: "Représenter le poids du skieur.",
     image: "assets/skieur.png",
     type: "exercise",
@@ -96,5 +96,13 @@ const EXERCISES = [
       originTolerance: 95,
       angleToleranceDeg: 18
     }
+  },
+  {
+    id: 7,
+    pageLabel: "7/7",
+    instruction:
+      "Félicitations, tu as terminé l'activité !\n\nCLIC CI-DESSOUS pour valider ta participation sur Éléa.",
+    image: "assets/fin.png",
+    type: "end"
   }
 ];
