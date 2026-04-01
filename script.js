@@ -6,7 +6,6 @@ const progressText = document.getElementById("progressText");
 const scoreValue = document.getElementById("scoreValue");
 const scoreTotal = document.getElementById("scoreTotal");
 const pageScore = document.getElementById("pageScore");
-const coordBox = document.getElementById("coordBox");
 
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -62,11 +61,6 @@ function toLocalPoint(clientX, clientY) {
     x: clamp(Math.round(x), 0, VIEW_W),
     y: clamp(Math.round(y), 0, VIEW_H)
   };
-}
-
-function updateCoordBox(point) {
-  if (!coordBox) return;
-  coordBox.textContent = `Coordonnées : x=${point.x}, y=${point.y}`;
 }
 
 function distance(a, b) {
@@ -254,7 +248,6 @@ function loadExercise(index) {
   updateNavButtons();
   hideModal();
   refreshOriginHint();
-  updateCoordBox({ x: "—", y: "—" });
 }
 
 function resetCurrentExercise() {
@@ -362,7 +355,6 @@ function moveDrag(event) {
     state.head = point;
   }
 
-  updateCoordBox(point);
   renderArrow();
 }
 
@@ -379,7 +371,6 @@ window.addEventListener("pointercancel", stopDrag);
 
 imageStage.addEventListener("click", (event) => {
   const point = toLocalPoint(event.clientX, event.clientY);
-  updateCoordBox(point);
   console.log(`x=${point.x}, y=${point.y}`);
 });
 
